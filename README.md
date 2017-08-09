@@ -6,12 +6,12 @@
 
 1 . 设置GOPATH(安装目录)
 
-$ export GOPATH=/path/to/
-$ cd /path/to （你自己想买路径 搞 golang 都知道 O(∩_∩)O~）
+    $ export GOPATH=/path/to/
+    $ cd /path/to （你自己想买路径 搞 golang 都知道 O(∩_∩)O~）
 
 2 . 下载安装
 
-$ go get github.com/Echosong/beego_blog
+    $ go get github.com/Echosong/beego_blog
 
 4 . 加入数据库
 
@@ -39,14 +39,15 @@ $ go get github.com/Echosong/beego_blog
 
  6 . 运行
 
-  cd 到 beego_blog 目录 执行
-  $ bee run
+    cd 到 beego_blog 目录 执行
+    $ bee run
 
  7 . 浏览器访问
 
- http://localhost:8099 (前台)
- http://localhost:8099/admin/login (后台)
+    http://localhost:8099 (前台)
+    
+    http://localhost:8099/admin/login (后台)
 
- 账号： admin  密码 :123456
+    账号： admin  密码 :123456
 
 
