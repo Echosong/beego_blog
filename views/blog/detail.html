@@ -1,0 +1,84 @@
+﻿{{template "blog/head.html" .}}
+<!-- 主体（一般只改变这里的内容） -->
+<div class="blog-body">
+    <div class="blog-container">
+        <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
+            <a href="home.html" title="网站首页">网站首页</a>
+            <a href="article.html" title="文章专栏">文章专栏</a>
+            <a><cite>{{.post.Title}}</cite></a>
+        </blockquote>
+        <div class="blog-main">
+            <div class="blog-main-left">
+                <!-- 文章内容（使用Kingeditor富文本编辑器发表的） -->
+                <div class="article-detail shadow">
+                    <div class="article-detail-title">
+                        {{.post.Title}}
+                    </div>
+                    <div class="article-detail-info">
+                        <span>编辑时间：{{date .post.Updated "Y-m-d H:i:s"}}</span>
+                        <span>作者：Echosong</span>
+                        <span>浏览量：{{.post.Views}}</span>
+                    </div>
+                    <div class="article-detail-content">
+                      {{.post.Content}}
+                    </div>
+                </div>
+                <!-- 评论区域 -->
+                <div class="blog-module shadow" style="box-shadow: 0 1px 8px #a6a6a6;">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-bottom:0">
+                        <legend>来说两句吧</legend>
+                        <div class="layui-field-box">
+                            <form class="layui-form blog-editor" action="/comment.html" method="post">
+                                <div class="layui-form-item">
+
+                                    <input type="hidden" name="post_id" value="{{.post.Id}}">
+                                    <input type="text" name="username"  lay-verify="required" placeholder="请输你的昵称" autocomplete="off" class="layui-input">
+                                </div>
+
+                                <div class="layui-form-item">
+
+                                    <textarea name="content" lay-verify="content" id="remarkEditor"
+                                              placeholder="请输入内容" class="layui-textarea layui-hide"></textarea>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <button class="layui-btn" lay-submit="formRemark" lay-filter="formRemark">提交评论
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </fieldset>
+                    <div class="blog-module-title">最新评论</div>
+                    <ul class="blog-comment">
+                        {{range .comments}}
+                        <li>
+                            <div class="comment-parent">
+                                <div class="info">
+                                    <span class="username">{{.Username}}</span>
+                                    <span class="time">{{date .Created "Y-m-d H:i:s"}}</span>
+                                </div>
+                                <div class="content">
+                                    {{str2html .Content}}
+                                </div>
+                            </div>
+                        </li>
+                        {{end}}
+                    </ul>
+                </div>
+            </div>
+            {{template "blog/right.html" .}}
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+{{template "blog/foot.html" .}}
+
+<textarea id="demo" style="display: none;"></textarea>
+<script>
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        layedit.build('remarkEditor'); //建立编辑器
+    });
+</script>
+</body>
+</html>

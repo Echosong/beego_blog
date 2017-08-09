@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>配置</title>
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css">
+</head>
+<body>
+
+<script type="text/javascript" src="/static/plug/layui/layui.js"></script>
+
+<form class="layui-form" action="/admin/config.html" style="margin:20px" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">标题：</label>
+        <div class="layui-input-block">
+            <input name="title" lay-verify="required"  value="{{.config.title}}" class="layui-input" title="网站名称" type="text" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">网址：</label>
+        <div class="layui-input-block">
+            <input name="url"   lay-verify="required|url" class="layui-input"  value="{{.config.url}}"  title="网址" type="text" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">关键字：</label>
+        <div class="layui-input-block">
+            <input name="keywords"  class="layui-input" value="{{.config.keywords}}" title="关键字" type="text" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">描述：</label>
+        <div class="layui-input-block">
+            <input name="description"  class="layui-input" value="{{.config.description}}"  title="描述" type="text" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱：</label>
+        <div class="layui-input-block">
+            <input name="email"  lay-verify="email"  class="layui-input" value="{{.config.email}}" class="input-xlarge" title="邮箱" type="text" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">qq：</label>
+        <div class="layui-input-block">
+            <input name="qq" lay-verify="number"  class="layui-input" value="{{.config.qq}}" class="input-xlarge" title="qq" type="text" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">开关：</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="start" {{if .config.start}} checked {{end}} value="1" title="开关" >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //Demo
+    layui.use('form', function(){
+
+
+    });
+</script>
+</body>
+</html>

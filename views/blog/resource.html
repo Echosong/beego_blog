@@ -1,0 +1,44 @@
+﻿
+{{template "blog/head.html" .}}
+    <!-- 主体（一般只改变这里的内容） -->
+    <div class="blog-body">
+        <div class="blog-container">
+            <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
+                <a href="home.html" title="网站首页">网站首页</a>
+                <a><cite>资源分享</cite></a>
+            </blockquote>
+            <div class="blog-main">
+                <div class="blog-main">
+
+                    <div class="resource-main">
+                        {{range .list}}
+
+                        <div class="resource shadow">
+                            <div class="resource-cover">
+                                <a href="{{.Url}}" target="_blank">
+                                    <img src="{{.Image}}" />
+                                </a>
+                            </div>
+
+                            <p class="resource-abstract">{{.Title}}！</p>
+                            <div class="resource-info">
+                                <span class="category"><a href="#"><i class="fa fa-tags fa-fw"></i>&nbsp;源码</a></span>
+                                <span class="author"><i class="fa fa-user fa-fw"></i>Echosong</span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="resource-footer">
+                                <a class="layui-btn layui-btn-small layui-btn-primary" href="#" target="_blank"><i class="fa fa-eye fa-fw"></i>演示</a>
+                                <a class="layui-btn layui-btn-small layui-btn-primary" href="{{.Url}}" target="_blank"><i class="fa fa-download fa-fw"></i>下载</a>
+                            </div>
+                        </div>
+                        {{end}}
+                        <!-- 清除浮动 -->
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{template "blog/foot.html" .}}
+</body>
+</html>

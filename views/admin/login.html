@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台登录</title>
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css">
+    <style>
+
+        .main {
+            margin: 0 auto;
+            width: 400px;
+            border: 1px solid;
+            border-color: #eeeeee;
+            border-radius: 5px;
+            margin-top: 100px;
+        }
+    </style>
+
+</head>
+<body>
+<script type="text/javascript" src="/static/plug/layui/layui.js"></script>
+<div class="main layui-clear">
+    <form action="/admin/login" method="post">
+        <div class="fly-panel fly-panel-user" pad20>
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">欢迎登录后台系统</li>
+                </ul>
+                <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding-top: 20px; padding-left: 50px;  ">
+
+                    <div class="layui-form layui-form-pane">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="username" required lay-verify="username" placeholder="用户名"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="password" required lay-verify="password"
+                                       placeholder="密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" style="float: right; margin-right: 42px;">
+
+                            <input type="checkbox" name="is_top" {{if .post.IsTop}} checked {{end}} value="1"
+                                   title="记住密码">
+
+                        </div>
+
+                        <div class="layui-form-item">
+                            <button lay-submit class="layui-btn btn-submit" style="width: 300px; border-radius:3px"
+                                    lay-submit=""
+                                    lay-filter="sub">立即登录
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+<script>
+    //Demo
+    layui.use('form', function () {
+    });
+</script>
+</html>

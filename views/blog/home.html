@@ -1,0 +1,111 @@
+﻿{{template "blog/head.html" .}}
+    <!-- 主体（一般只改变这里的内容） -->
+    <div class="blog-body">
+        <!-- canvas -->
+        <canvas id="canvas-banner" style="background: #393D49;"></canvas>
+        <!--为了及时效果需要立即设置canvas宽高，否则就在home.js中设置-->
+        <script type="text/javascript">
+            var canvas = document.getElementById('canvas-banner');
+            canvas.width = window.document.body.clientWidth - 10;//减去滚动条的宽度
+            if (screen.width >= 992) {
+                canvas.height = window.innerHeight * 1 / 3;
+            } else {
+                canvas.height = window.innerHeight * 2 / 7;
+            }
+        </script>
+        <!-- 这个一般才是真正的主体内容 -->
+        <div class="blog-container">
+            <div class="blog-main">
+                <!-- 网站公告提示 -->
+                <div class="home-tips shadow">
+                    <i style="float:left;line-height:17px;" class="fa fa-volume-up"></i>
+                    <div class="home-tips-container">
+                        <span style="color: #009688">偷偷告诉大家，本博客的后台管理也正在制作，为大家准备了游客专用账号！</span>
+                        <span style="color: red">网站新增留言回复啦！使用QQ登陆即可回复，人人都可以回复！</span>
+                        <span style="color: red">如果你觉得网站做得还不错，来Fly社区点个赞吧！<a href="http://fly.layui.com/case/2017/" target="_blank" style="color:#01AAED">点我前往</a></span>
+                        <span style="color: #009688">不落阁 &nbsp;—— &nbsp;一个.NET程序员的个人博客，新版网站采用Layui为前端框架，目前正在建设中！</span>
+                    </div>
+                </div>
+                <!--左边文章列表-->
+                <div class="blog-main-left">
+
+                    {{range .list}}
+                    <div class="article shadow">
+                        <div class="article-left">
+                            <img src="{{.Image}}"  />
+                        </div>
+                        <div class="article-right">
+                            <div class="article-title">
+                                <a href="detail.html?id={{.Id}}">{{.Title}}</a>
+                            </div>
+                            <div class="article-abstract">
+                                {{.Info}}
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="article-footer">
+                            <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp; {{date .Updated "Y-m-d"}}</span>
+                            <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;Echosong</span>
+                            <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="#">{{.Tags}}</a></span>
+                            <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;{{.Views}}</span>
+                            <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;0</span>
+                        </div>
+                    </div>
+                    {{end}}
+
+                    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                        {{str2html .pagebar}}
+                    </div>
+                </div>
+                <!--右边小栏目-->
+                <div class="blog-main-right">
+                    <div class="blogerinfo shadow">
+                        <div class="blogerinfo-figure">
+                            <img src="/static/images/es.png" alt="Echosong" style="width: 100px; height: 100px; border-color: papayawhip; border: 1px solid;"/>
+                        </div>
+                        <p class="blogerinfo-nickname">Echsong</p>
+                        <p class="blogerinfo-introduce">太阳底下没有新鲜事</p>
+                        <p class="blogerinfo-location"><i class="fa fa-location-arrow"></i>&nbsp;上海 - 浦东</p>
+                        <hr />
+                        <div class="blogerinfo-contact">
+                            <a target="_blank" title="QQ交流" href="javascript:layer.msg('启动QQ会话窗口')"><i class="fa fa-qq fa-2x"></i></a>
+                            <a target="_blank" title="给我写信" href="javascript:layer.msg('启动邮我窗口')"><i class="fa fa-envelope fa-2x"></i></a>
+                            <a target="_blank" title="新浪微博" href="javascript:layer.msg('转到你的微博主页')"><i class="fa fa-weibo fa-2x"></i></a>
+                            <a target="_blank" title="码云" href="https://github.com/Echosong/ES/"><i class="fa fa-git fa-2x"></i></a>
+                        </div>
+                    </div>
+                    <div></div><!--占位-->
+
+                    <div class="article-category shadow">
+                        <div class="article-category-title">分类导航</div>
+                        {{range .cates}}
+                        <a href="/article?cate_id={{.Id}}">{{.Name}}</a>
+                        {{end}}
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="blog-module shadow">
+                        <div class="blog-module-title">热文排行</div>
+                        <ul class="fa-ul blog-module-ul">
+                            {{range .hosts}}
+                            <li style="line-height: 30px"><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html?id={{.Id}}">{{.Title}}</a></li>
+                            {{end}}
+                        </ul>
+                    </div>
+
+                    <div class="blog-module shadow">
+                        <div class="blog-module-title">友情链接</div>
+                        <ul class="blogroll">
+                            <li><a target="_blank" href="http://www.layui.com/" title="Layui">Layui</a></li>
+                            <li><a target="_blank" href="https://github.com/Echosong/ES/" title="页签">github</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    {{template "blog/foot.html" .}}
+</body>
+</html>
