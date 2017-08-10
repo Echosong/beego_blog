@@ -6,6 +6,7 @@ import (
 	"github.com/Echosong/beego_blog/util"
 	"fmt"
 	"strings"
+	"time"
 )
 
 type AdminController struct {
@@ -137,6 +138,31 @@ func (c *AdminController) Article() {
 	c.TplName = c.controllerName + "/_form.tpl"
 }
 
+//上传接口
+func (c *AdminController) Upload() {
+	f, h, err := c.GetFile("uploadname")
+	result := make(map[string]interface{})
+	img := ""
+	if err == nil {
+		exStrArr := strings.Split(h.Filename, ".")
+		exStr := strings.ToLower(exStrArr[len(exStrArr)-1])
+		if exStr != "jpg" && exStr!="png" && exStr != "gif" {
+			result["code"] = 1
+			result["message"] = "上传只能.jpg 或者png格式"
+		}
+		img = "/static/upload/" + util.UniqueId()+"."+exStr;
+		c.SaveToFile("upFilename", img) // 保存位置在 static/upload, 没有文件夹要先创建
+		result["code"] = 0
+		result["message"] =img
+	}else{
+		result["code"] = 2
+		result["message"] = "上传异常"+err.Error()
+	}
+	defer f.Close()
+	c.Data["json"] = result
+	c.ServeJSON()
+}
+
 //保存
 func (c * AdminController) Save()  {
 	post := models.Post{}
@@ -149,17 +175,21 @@ func (c * AdminController) Save()  {
 	post.Url = c.Input().Get("url")
 	post.CategoryId, _ = c.GetInt("cate_id")
 	post.Info = c.Input().Get("info")
+	post.Image = c.Input().Get("image")
+	post.Created = time.Now()
+	post.Updated = time.Now()
+
 	id ,_ := c.GetInt("id")
 	if id == 0 {
 		if _, err := c.o.Insert(&post); err != nil {
-			c.History("插入数据错误", "")
+			c.History("插入数据错误"+err.Error(), "")
 		} else {
 			c.History("插入数据成功", "/admin/index.html")
 		}
 	}else {
 		post.Id = id
 		if _, err := c.o.Update(&post); err != nil {
-			c.History("更新数据出错", "")
+			c.History("更新数据出错"+err.Error(), "")
 		} else {
 			c.History("插入数据成功", "/admin/index.html")
 		}

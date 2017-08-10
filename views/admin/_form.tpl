@@ -68,6 +68,15 @@
         </div>
     </div>
 
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">图片</label>
+        <div class="layui-input-block">
+            <input name="Image" id="Image" value="{{.post.Image}}" placeholder="请输入内容" style="width: 300px; float: left"  class="layui-input">
+            <input type="file" name="uploadname" style="float: left" lay-ext="jpg|png|gif" class="layui-upload-file">
+        </div>
+    </div>
+
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
@@ -100,6 +109,20 @@
 
 
     });
+
+    layui.use('upload', function(){
+        layui.upload({
+            url: '/admin/upload'
+            ,success: function(res, input){
+                if(res.code ==0 ){
+                   document.getElementById("Image").value = res.message;
+                }else{
+                    layui.msg(res.message)
+                }
+            }
+        });
+    });
+
 </script>
 
 </body>
