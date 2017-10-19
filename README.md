@@ -42,11 +42,14 @@
     cd 到 beego_blog 目录 执行
     $ bee run
 
- 7 . 浏览器访问
+ 7 . 浏览器演示
 
-http://localhost:8099 (前台)
+http://www.91jinding.com:8099 (前台)
 
-http://localhost:8099/admin/login (后台)
+http://www.91jinding.com:8099/admin/login (后台)
+
+
+
 
     账号： admin  密码 :123456
 
