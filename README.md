@@ -7,7 +7,7 @@
 1 . 设置GOPATH(安装目录)
 
     $ export GOPATH=/path/to/
-    $ cd /path/to （你自己想买路径 搞 golang 都知道 O(∩_∩)O~）
+
 
 2 . 下载安装
 
