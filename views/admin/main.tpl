@@ -94,7 +94,7 @@
             { id: 6, pid: 2, node: '&nbsp;&nbsp;&nbsp;博文添加', url: '/admin/article.html' },
         ], 0, 'id', 'pid', 'node', 'url');
         cms.bind(60 + 41 + 20 + 44); //头部高度 + 顶部切换卡标题高度 + 顶部切换卡内容padding + 底部高度
-        cms.clickLI(1);
+        cms.clickLI(5);
 
     });
 
