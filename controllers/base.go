@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/Echosong/beego"
-	"github.com/Echosong/beego/orm"
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 	"strings"
 	"github.com/Echosong/beego_blog/models"
 )
