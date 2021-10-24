@@ -10,19 +10,19 @@ type BlogController struct {
 	baseController
 }
 
-func (c *BlogController) list()  {
+func (c *BlogController) list() {
 	var (
-		page       int
-		pagesize   int = 6
-		offset     int
-		list       []*models.Post
-		hosts      [] *models.Post
-		cateId int
-		keyword    string
+		page     int
+		pagesize int = 6
+		offset   int
+		list     []*models.Post
+		hosts    []*models.Post
+		cateId   int
+		keyword  string
 	)
 
-	categorys := [] *models.Category{}
-	c.o.QueryTable( new(models.Category).TableName()).All(&categorys)
+	categorys := []*models.Category{}
+	c.o.QueryTable(new(models.Category).TableName()).All(&categorys)
 	c.Data["cates"] = categorys
 
 	if page, _ = c.GetInt("page"); page < 1 {
@@ -33,12 +33,12 @@ func (c *BlogController) list()  {
 
 	if c.actionName == "resource" {
 		query = query.Filter("types", 0)
-	}else{
+	} else {
 		query = query.Filter("types", 1)
 	}
 
 	if cateId, _ = c.GetInt("cate_id"); cateId != 0 {
-		query =  query.Filter("category_id", cateId)
+		query = query.Filter("category_id", cateId)
 	}
 	keyword = c.Input().Get("keyword")
 	if keyword != "" {
@@ -51,71 +51,80 @@ func (c *BlogController) list()  {
 	}
 	count, _ := query.Count()
 	c.Data["count"] = count
-	query.OrderBy( "-created").Limit(pagesize, offset).All(&list)
+	query.OrderBy("-created").Limit(pagesize, offset).All(&list)
 
 	c.Data["list"] = list
-	c.Data["pagebar"] = util.NewPager(page, int(count), pagesize,"/"+c.actionName, true).ToString()
+	c.Data["pagebar"] = util.NewPager(page, int(count), pagesize, "/"+c.actionName, true).ToString()
 	c.Data["hosts"] = hosts
 }
 
 /**
 首页
 */
-func (c *BlogController) Home()  {
+func (c *BlogController) Home() {
+	config := models.Config{Name: "start"}
+	c.o.Read(&config, "Name")
+	var notices []*models.Post
+	c.o.QueryTable(new(models.Post).TableName()).Filter("category_id", 2).All(&notices)
+	c.Data["notices"] = notices
+	if config.Value != "1" {
+		c.Ctx.WriteString("系统维护.....")
+		return
+	}
 	c.list()
-	c.TplName= c.controllerName+"/home.html"
+	c.TplName = c.controllerName + "/home.html"
 }
 
 /**
 列表页面
- */
+*/
 func (c *BlogController) Article() {
 	c.list()
-	c.TplName = c.controllerName+ "/article.html"
+	c.TplName = c.controllerName + "/article.html"
 }
 
 /**
 详情
- */
-func (c *BlogController) Detail()  {
-	if id, _ := c.GetInt("id"); id != 0{
-		post := models.Post{Id:id}
+*/
+func (c *BlogController) Detail() {
+	if id, _ := c.GetInt("id"); id != 0 {
+		post := models.Post{Id: id}
 		c.o.Read(&post)
 		c.Data["post"] = post
-		comments := [] *models.Comment{}
+		comments := []*models.Comment{}
 		query := c.o.QueryTable(new(models.Comment).TableName()).Filter("post_id", id)
 		query.All(&comments)
 		c.Data["comments"] = comments
 
-		categorys := [] *models.Category{}
-		c.o.QueryTable( new(models.Category).TableName()).All(&categorys)
+		categorys := []*models.Category{}
+		c.o.QueryTable(new(models.Category).TableName()).All(&categorys)
 		c.Data["cates"] = categorys
-		var hosts      [] *models.Post
+		var hosts []*models.Post
 		querys := c.o.QueryTable(new(models.Post).TableName()).Filter("types", 1)
 		querys.OrderBy("-views").Limit(10, 0).All(&hosts)
 		c.Data["hosts"] = hosts
 
 	}
-	c.TplName = c.controllerName+ "/detail.html"
+	c.TplName = c.controllerName + "/detail.html"
 }
 
 /**
 关于我们
- */
-func (c *BlogController) About()  {
-	post := models.Post{Id:1}
+*/
+func (c *BlogController) About() {
+	post := models.Post{Id: 1}
 	c.o.Read(&post)
 	c.Data["post"] = post
 	c.TplName = c.controllerName + "/about.html"
 }
 
 //时间线
-func (c *BlogController) Timeline()  {
+func (c *BlogController) Timeline() {
 	c.TplName = c.controllerName + "/timeline.html"
 }
 
 //资源
-func (c *BlogController) Resource()  {
+func (c *BlogController) Resource() {
 	c.list()
 	c.TplName = c.controllerName + "/resource.html"
 }
@@ -129,8 +138,8 @@ func (c *BlogController) Comment() {
 	Comment.PostId, _ = c.GetInt("post_id")
 	Comment.Created = time.Now()
 	if _, err := c.o.Insert(&Comment); err != nil {
-		c.History("发布评价失败" + err.Error(), "")
-	}else{
+		c.History("发布评价失败"+err.Error(), "")
+	} else {
 		c.History("发布评价成功", "")
 	}
 }

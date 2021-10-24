@@ -47,19 +47,27 @@
     <tr>
         <th>标题</th>
         <th>时间</th>
+        <td>分类</td>
         <td>置顶</td>
         <th>点击量</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody>
-    {{range .list}}
+    {{range $o :=.list}}
     <tr>
         <td>{{.Title}}</td>
         <td>{{.Created}}</td>
         <td>
+            {{range  $elem := $.categorys }}
+                {{if eq $elem.Id  $o.CategoryId}}
+                    {{$elem.Name}}
+                {{end}}
+            {{end}}
+        </td>
+        <td>
             {{if .IsTop}}
-            <i class="icon-arrow-up" title="置顶"> </i>
+            <i class="icon-arrow-up" title="置顶" style="color: blue">置顶 </i>
             {{else}}
                 普通
             {{end}}
@@ -71,9 +79,11 @@
             <a href="/admin/article?id={{.Id}}" >
                 <i class="layui-icon">&#xe642;</i> 修改
             </a>
+            {{if ne  .CategoryId 1}}
             <a href="javascript:void(0)" onclick="del({{.Id}})"  >
                 <i class="layui-icon">&#x1006;</i> 删除
             </a>
+            {{end}}
         </td>
     </tr>
     {{end}}

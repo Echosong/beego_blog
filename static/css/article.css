@@ -20,11 +20,13 @@
     .search-keywords,
     .search-submit {
         display: inline-block;
+
     }
 
     .search-keywords {
         width: 85%;
         float: left;
+        position: relative;
     }
 
         .search-keywords > input {
@@ -45,6 +47,9 @@
             float: right;
             border-radius: 1px;
             border: 1px solid #e2e2e2;
+            position: absolute;
+            right: 2px;
+            top: 2px;
         }
 
             .search-submit > .search-btn:hover {

@@ -16,6 +16,7 @@
     <link href="/static/css/global.css" rel="stylesheet" />
     <!-- 本页样式表 -->
     <link href="/static/css/{{.actionName}}.css" rel="stylesheet" />
+    <script src="/static/js/jquery.min.js"></script>
 </head>
 <body>
 <!-- 导航 -->
@@ -29,22 +30,22 @@
             <img src="/static/images/Absolutely.jpg" alt="Absolutely" title="Absolutely" />
         </a>
         <!-- 不落阁 -->
-        <a class="blog-logo" href="home.html">ES-博客</a>
+        <a class="blog-logo" href="home.html"> {{index .config "title"}}</a>
         <!-- 导航菜单 -->
         <ul class="layui-nav" lay-filter="nav">
-            <li class="layui-nav-item layui-this">
+            <li class="layui-nav-item" id="home">
                 <a href="home.html"><i class="fa fa-home fa-fw"></i>&nbsp;网站首页</a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" id="article">
                 <a href="article.html"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章专栏</a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" id="resource">
                 <a href="resource.html"><i class="fa fa-tags fa-fw"></i>&nbsp;资源分享</a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" id="timeline">
                 <a href="timeline.html"><i class="fa fa-hourglass-half fa-fw"></i>&nbsp;点点滴滴</a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" id="about">
                 <a href="about.html"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
             </li>
         </ul>
@@ -54,3 +55,8 @@
         </a>
     </div>
 </nav>
+<script>
+    var idUrl = location.pathname.replace("/", "").replace(".html", "");
+    $(".layui-nav-item").removeClass("layui-this");
+    $("#"+idUrl).addClass("layui-this");
+</script>

@@ -9,13 +9,19 @@
             </blockquote>
             <div class="blog-main">
                 <div class="blog-main-left">
+                    {{if not .count }}
                     <div class="shadow" style="text-align:center;font-size:16px;padding:40px 15px;background:#fff;margin-bottom:15px;">
                         未搜索到与【<span style="color: #FF5722;">keywords</span>】有关的文章，随便看看吧！
                     </div>
+                    {{end}}
                     {{range .list}}
                     <div class="article shadow">
                         <div class="article-left">
-                            <img src="{{.Image}}"  />
+                            {{if .Image}}
+                            <img src="{{.Image}}" style="width: 150px;"  />
+                            {{else}}
+                            <img src="/static/images/1.jpeg">
+                            {{end}}
                         </div>
                         <div class="article-right">
                             <div class="article-title">

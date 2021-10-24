@@ -3,18 +3,21 @@
         <form class="layui-form" action="/article.html" method="get" id="formSearch">
             <div class="layui-form-item">
                 <div class="search-keywords  shadow">
-                    <input type="text" name="keyword" lay-verify="required" placeholder="输入关键词搜索" autocomplete="off" class="layui-input">
+                    <input type="text" name="keyword"  style="float: left; width: 82%" lay-verify="required" placeholder="输入关键词搜索" autocomplete="off" class="layui-input">
+                    <div class="search-submit  shadow" >
+                        <button class="search-btn" style="float: left; margin-left: 5px; margin-top: 5px;" lay-submit="formSearch" lay-filter="formSearch" ><i class="fa fa-search" style="height: 20px; width:32px"></i></button>
+                    </div>
                 </div>
-                <div class="search-submit  shadow">
-                    <button class="search-btn" lay-submit="formSearch" lay-filter="formSearch"><i class="fa fa-search"></i></button>
-                </div>
+
             </div>
         </form>
     </div>
     <div class="article-category shadow">
         <div class="article-category-title">分类导航</div>
         {{range .cates}}
+        {{if gt .Id 2}}
         <a href="/article?cate_id={{.Id}}">{{.Name}}</a>
+        {{end}}
         {{end}}
         <div class="clear"></div>
     </div>

@@ -13,6 +13,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">类型</label>
         <div class="layui-input-block">
+            <input type="hidden" value="{{.post.Id}}" name="id">
             <input type="radio" name="types" value="1" title="博文"  {{if .post.Types}} checked {{end}}>
             <input type="radio" name="types" value="0" title="下载"  {{if .post.Types}} {{else}} checked {{end}}>
         </div>
@@ -30,8 +31,8 @@
         <div class="layui-input-block">
             <select name="cate_id" lay-verify="required">
                 <option value=""></option>
-                {{range .categorys}}
-                <option value="{{.Id}}" >{{.Name}}</option>
+                {{range .categorys  }}
+                <option value="{{.Id}}" {{if $.post.Id}} {{if eq  $.post.CategoryId  .Id  }} selected="true" {{end}}{{end}} >{{.Name}}</option>
                 {{end}}
             </select>
         </div>
@@ -73,7 +74,7 @@
         <label class="layui-form-label">图片</label>
         <div class="layui-input-block">
             <input name="Image" id="Image" value="{{.post.Image}}" placeholder="请输入内容" style="width: 300px; float: left"  class="layui-input">
-            <input type="file" name="uploadname" style="float: left" lay-ext="jpg|png|gif" class="layui-upload-file">
+            <input type="file" name="upFilename" style="float: left" lay-ext="jpg|png|gif" class="layui-upload-file">
         </div>
     </div>
 

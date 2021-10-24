@@ -20,7 +20,7 @@
                         <span>浏览量：{{.post.Views}}</span>
                     </div>
                     <div class="article-detail-content">
-                      {{.post.Content}}
+                      {{.post.Content | str2html}}
                     </div>
                 </div>
                 <!-- 评论区域 -->
