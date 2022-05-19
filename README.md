@@ -2,6 +2,8 @@
 
 基于Go语言和beego框架 前端使用layui 布局 开发的个人博客系统
 
+cms 相关系统可以看 [beego cms] (https://github.com/Echosong/beego_element_cms)
+
 ## 编译安装说明：
 
 1 . 设置GOPATH(安装目录)
