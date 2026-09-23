@@ -1,0 +1,39 @@
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: beego_blog_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_beego
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      # 首次启动自动导入建表 + 初始数据
+      - ./db_beego.sql:/docker-entrypoint-initdb.d/db_beego.sql:ro
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    container_name: beego_blog_app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      # beego 1.x 支持 ${VAR||default} 语法读取环境变量
+      dbhost: mysql
+      dbport: "3306"
+      dbuser: root
+      dbpassword: root
+      dbname: db_beego
+      dbprefix: tb_
+      runmode: prod
+    ports:
+      - "8099:8099"
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
